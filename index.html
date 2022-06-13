@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Case Converter</title>
+</head>
+<body style="background-image: radial-gradient(rgb(224, 187, 215), rgb(223, 130, 181), rgb(231, 96, 175), rgb(231, 52, 126))">
+<div id="mainDiv" style="display: block; position: relative; flex-flow: column; margin: 10% 30% 30% 30%; text-align: center; text-decoration: none; background-image: none;">
+    <div class="title" style="font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;">Case Converter</div>
+    <div class="textarea">
+        <label for="textarea"></label>
+        <textarea id="textarea" name="textarea"></textarea>
+    </div>
+    <div class="button">
+        <button id="upper-case" style="background-color: deeppink; font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;">Upper Case</button>
+        <button id="lower-case" style="background-color: deeppink; font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;">Lower Case</button>
+        <button id="proper-case" style="background-color: deeppink; font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;">Proper Case</button>
+        <button id="sentence-case" style="background-color: deeppink; font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;">Sentence Case</button>
+        <button id="save-text-file" style="background-color: deeppink; font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;">Save Text File</button>
+    </div>
+</div>
+<script>
+    document.getElementById("upper-case").addEventListener("click", function upperCase(){
+        document.getElementById("textarea").value = document.getElementById("textarea").value.toUpperCase();
+    })
+    document.getElementById("lower-case").addEventListener("click", function lowerCase(){
+        document.getElementById("textarea").value = document.getElementById("textarea").value.toLowerCase();
+    })
+    document.getElementById("proper-case").addEventListener("click", function properCase() {
+        let sentence = document.getElementById("textarea").value.toLowerCase().split(' ');
+        for (let i = 0; i < sentence.length; i++) {
+            sentence[i] = sentence[i].charAt(0).toUpperCase() + sentence[i].slice(1);
+        }
+        return document.getElementById("textarea").value = sentence.join(' ');
+    })
+    document.getElementById("sentence-case").addEventListener("click", function sentenceCase(){
+        let sentence = document.getElementById("textarea").value.toLowerCase().split('. ');
+        for (let i = 0; i < sentence.length; i++) {
+            sentence[i] = sentence[i].charAt(0).toUpperCase() + sentence[i].slice(1);
+        }
+        return document.getElementById("textarea").value = sentence.join('. ');
+    })
+    function download(filename, text) {
+        let element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
+
+    document.getElementById("save-text-file").addEventListener("click", function saveTextFile (){
+        let text = document.getElementById("textarea").value;
+        let filename = "text.txt";
+        download(filename, text);
+    }, false)
+</script>
+</body>
+<footer></footer>
+</html>
+
+
+
